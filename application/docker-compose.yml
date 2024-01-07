@@ -1,0 +1,10 @@
+version: '2'
+services:
+
+  app-no-ops:
+    restart: always
+    container_name: "app-no-ops"
+    build : .
+    ports:
+      - "8081:8080"
+    network_mode: bridge

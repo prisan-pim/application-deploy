@@ -22,7 +22,7 @@ metadata:
   labels:
     app: app-no-ops
 spec:
-  replicas: 10
+  replicas: 4
   selector:
     matchLabels:
       app: app-no-ops

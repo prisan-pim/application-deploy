@@ -83,11 +83,35 @@ terraform output -raw secret_key
 
 
 # Create ArgoCD On EKS
+
+- Install ArgoCD On EKS
+```
 kubectl create namespace argocd
+
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+
 kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}"| base64 -d;echo
+
 kubectl patch svc argocd-server -n argocd -p '{"spec" : {"type" : "LoadBalancer"}}'
+```
+
+
+- Config ArgoCD Project Allow
+![image description](/image/13.png)
+
+- Config ArgoCD Cluster Allow
+![image description](/image/14.png)
+
+
+- Config Application Deploy
+![image description](/image/15.png)
+![image description](/image/16.png)
+![image description](/image/17.png)
+
+- Wait Processing Deploy
+![image description](/image/18.png)
 
 
 # Deploy Application
 kubectl create namespace application
+
