@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: application
+  name: app-no-ops
+  labels:
+    app: app-no-ops
+spec:
+  selector:
+    app: app-no-ops
+  type: NodePort
+  ports:
+   - port: 8080
+     name: http
+     targetPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-no-ops
+  namespace: application
+  labels:
+    app: app-no-ops
+spec:
+  replicas: 10
+  selector:
+    matchLabels:
+      app: app-no-ops
+  template:
+    metadata:
+      labels:
+        app: app-no-ops
+    spec:
+      containers:
+      - name: app-no-ops
+        image: wenwen6046/app-no-ops:latest
+        imagePullPolicy: Always
