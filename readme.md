@@ -8,8 +8,18 @@ cd /application
 ```
 
 - run command for build Dockerfile and push image to Dockerhub
+
+
 ```
-./build.sh $user $pass ( ./build.sh uer123 pas123 )
+-- for Liunx ---
+
+./build.sh $user $pass ( ./build.sh uer123 pas123 ) 
+
+
+-- for M1 ---
+
+./build_mac.sh $user $pass ( ./build.sh uer123 pas123 ) 
+
 ```
 
 - Build Dockerfile By Script
@@ -110,6 +120,9 @@ kubectl patch svc argocd-server -n argocd -p '{"spec" : {"type" : "LoadBalancer"
 
 - Wait Processing Deploy
 ![image description](/image/18.png)
+
+- Processing Deploy Success
+![image description](/image/19.png)
 
 
 # Deploy Application
