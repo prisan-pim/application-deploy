@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: app-no-ops
+    namespace:  application
+    labels:
+      app: app
+spec:
+    replicas: 3
+    selector:
+        matchLabels:
+            app: app-no-ops
+    template:
+        metadata:
+            labels:
+                app: app-no-ops
+        spec:
+            containers:
+                - name: app-no-ops
+                  image: wenwen6046/app-no-ops:{{ .Values.env.APP_VERSION }}
+                  ports:
+                    - containerPort: 8080
+                  readinessProbe:
+                    httpGet:
+                        path: /health
+                        port: 8080
+                    initialDelaySeconds: 10
+                    periodSeconds: 10
+                    successThreshold: 1
+                    failureThreshold: 3
+                  livenessProbe:
+                    httpGet:
+                        path: /health
+                        port: 8080
+                    initialDelaySeconds: 10
+                    periodSeconds: 10
+                    timeoutSeconds: 5
+                    successThreshold: 1
+                    failureThreshold: 3
