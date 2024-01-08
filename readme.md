@@ -1,6 +1,8 @@
 # How To Deploy Application
 
-## 1. Build Application By Dockerfile
+
+## CICD Deploy Application
+## 1.1 Build Application By Dockerfile
 
 - go to folder application
 ```
@@ -25,6 +27,20 @@ cd /application
 - Build Dockerfile By Script
 ![image description](/image/1.png)
 ![image description](/image/2.png)
+
+- Push Docker image To DockerHub 
+![image description](/image/3.png)
+
+## 1.2 Build Dockerfile by Github Action Pipeline
+- Config Env use on Action
+![image description](/image/20.png)
+
+
+- Github Queue Run
+![image description](/image/22.png)
+
+- Github Build Dockerfile by Action 
+![image description](/image/23.png)
 
 - Push Docker image To DockerHub 
 ![image description](/image/3.png)
@@ -56,11 +72,11 @@ terraform apply
 ![image description](/image/8.png)
 
 
-## 2. Create S3 (AWS)  By Terraform
+## 2. Create S3 And SQS (Amazon Simple Queue Service) for AWS By Terraform
 
-- go to folder S3 Service
+- go to folder Service
 ```
-cd service-aws/s3
+cd service-aws
 ```
 
 - Install Terraform Lib
@@ -102,9 +118,9 @@ kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/st
 
 kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}"| base64 -d;echo
 
-kubectl patch svc argocd-server -n argocd -p '{"spec" : {"type" : "LoadBalancer"}}'
+kubectl port-forward svc/argocd-server -n argocd 8080:443   
 
-kubectl create namespace application
+kubectl create namespace application (for deploy application on namespace)
 
 ```
 
@@ -127,10 +143,21 @@ kubectl create namespace application
 - Processing Deploy Success
 ![image description](/image/19.png)
 
+- Check Pods On EKS
+![image description](/image/21.png)
 
-# Deploy Application
-
-
-
+# Deploy Ingress 
+- install ingress by Helm
+```
 helm upgrade --install ingress-nginx ingress-nginx/ingress-nginx --namespace kube-system
+```
+
+- Apply ingress
+```
+kubectl apply -f ingress.yaml
+```
+
+
+
+
 
