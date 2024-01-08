@@ -34,8 +34,8 @@ jobs:
         run: |
           cd helm
           sed -i 's|APP_VERSION:.*|APP_VERSION: '${{ github.sha }}'|' values.yaml 
-          git config --global user.name '${{ env.GIT_USERNAME }}'
-          git config --global user.email '${{ env.GIT_EMAIL }}'
+          git config --global user.name 'prisan-pim'
+          git config --global user.email 'prisan.pim@gmail.com'
           git add values.yaml
           git commit -m "Update values.yaml"
           git push
