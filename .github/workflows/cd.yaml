@@ -25,17 +25,19 @@ jobs:
           password: ${{ env.DOCKERHUB_KEY }}
 
       - name: Build Docker image
-        run: cd application && docker build -t ${{ env.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:${{ github.sha }} .
+        # run: cd application && docker build -t ${{ env.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:${{ github.sha }} .
+        run: cd application && docker build -t ${{ env.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:latest .
 
       - name: Push Docker image
-        run: docker push ${{ env.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+        # run: docker push ${{ env.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+        run: docker push ${{ env.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:latest
 
-      - name: Update values.yaml
-        run: |
-          cd helm
-          sed -i 's|APP_VERSION:.*|APP_VERSION: '${{ github.sha }}'|' values.yaml 
-          git config --global user.name 'prisan-pim'
-          git config --global user.email 'prisan.pim@gmail.com'
-          git add values.yaml
-          git commit -m "Update values.yaml"
-          git push
+      # - name: Update values.yaml
+      #   run: |
+      #     cd helm
+      #     sed -i 's|APP_VERSION:.*|APP_VERSION: '${{ github.sha }}'|' values.yaml 
+      #     git config --global user.name 'prisan-pim'
+      #     git config --global user.email 'prisan.pim@gmail.com'
+      #     git add values.yaml
+      #     git commit -m "Update values.yaml"
+      #     git push
