@@ -87,18 +87,13 @@ terraform init
 ![image description](/image/9.png)
 
 
-- Run Response EKS 
+- RUN Terraform create S3 And SQS
 ```
 terraform plan
+terraform apply
+
 ```
 ![image description](/image/10.png)
-
-- RUN Terraform create EKS
-```
-terraform apply
-```
-![image description](/image/11.png)
-
 
 - Get Access Key And Secret Key Sensitive
 ```
